@@ -29,7 +29,13 @@ public class GameController : MonoBehaviour
     public PlayerColor activePlayerColor;
     public PlayerColor inactivePlayerColor;
     public GameObject startInfo;
-
+	public int playerXGameWon = 0;
+	public int playerOGameWon = 0;
+	public GameObject playerXScorePanel;
+	public GameObject playerOScorePanel;
+	public Text playerXScoreText;
+	public Text playerOScoreText; 
+   
     private string playerSide;
     private int moveCount;
 
@@ -38,6 +44,10 @@ public class GameController : MonoBehaviour
         SetGameControllerReferenceOnButtons();
         gameOverPanel.SetActive(false);
         moveCount = 0;
+		this.playerOGameWon = 0;
+		this.playerXGameWon = 0;
+		playerOScoreText.text = " " + this.playerOGameWon;
+		playerXScoreText.text = " " + this.playerXGameWon; 
         restartButton.SetActive(false);
     }
 
@@ -122,6 +132,18 @@ public class GameController : MonoBehaviour
         }
     }
 
+	void setWinner(string winner){
+		
+		//Calculate the game won to each player. 
+        if (winner == "O")
+        {
+            this.playerOGameWon = this.playerOGameWon + 1;
+        }
+		else if (winner == "X")
+        {
+            this.playerXGameWon = this.playerXGameWon + 1;
+        }
+	}
     void ChangeSides()
     {
         playerSide = (playerSide == "X") ? "O" : "X";
@@ -154,6 +176,9 @@ public class GameController : MonoBehaviour
         else
         {
             SetGameOverText(winningPlayer + " Wins!");
+			this.setWinner(winningPlayer);
+			playerOScoreText.text = " " + this.playerOGameWon;
+            playerXScoreText.text = " " + this.playerXGameWon; 
         }
         restartButton.SetActive(true);
     }
