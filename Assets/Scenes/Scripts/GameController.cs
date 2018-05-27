@@ -8,6 +8,8 @@ public class Player
     public Image panel;
     public Text text;
     public Button button;
+    public int score;
+    public Text scoreText;
 }
 
 [System.Serializable]
@@ -154,6 +156,18 @@ public class GameController : MonoBehaviour
         else
         {
             SetGameOverText(winningPlayer + " Wins!");
+            if (playerSide == "X")
+            {
+                playerX.score++;
+                playerX.scoreText.text = playerX.score.ToString();
+
+            }
+            else
+            {
+                playerO.score++;
+                playerO.scoreText.text = playerO.score.ToString();
+
+            }
         }
         restartButton.SetActive(true);
     }
